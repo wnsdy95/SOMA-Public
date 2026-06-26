@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="SOMA logo" width="260">
+</p>
+
 # SOMA
 
 [![Code License: Apache-2.0](https://img.shields.io/badge/code%20license-Apache--2.0-blue.svg)](LICENSE)
