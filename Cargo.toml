@@ -4,9 +4,9 @@ members = ["crates/soma"]
 
 [workspace.package]
 edition = "2021"
-rust-version = "1.86"
+rust-version = "1.88"
 license = "Apache-2.0"
-repository = "https://github.com/wnsdy95/SOMA"
+repository = "https://github.com/wnsdy95/SOMA-Public"
 
 [workspace.dependencies]
 tokio = { version = "1", features = ["full"] }
