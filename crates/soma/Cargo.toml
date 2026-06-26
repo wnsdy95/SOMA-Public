@@ -38,7 +38,7 @@ tracing-appender = "0.2"
 # (rust-toolchain.toml + workspace MSRV). Cargo.lock is gitignored,
 # so the constraint must live in this manifest. Bump in lockstep
 # with the toolchain bump ADR.
-time = ">=0.3.36, <0.3.46"
+time = ">=0.3.36, <0.3.52"
 # `clap_complete` powers `soma completions <shell>`. 4.x tracks
 # `clap` 4.x (workspace dep), so version bumps stay in lockstep.
 clap_complete = "4"
