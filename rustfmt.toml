@@ -1,0 +1,10 @@
+# Rustfmt config, workspace-wide.
+# Design: docs/discussions/0003-ci-matrix-design.md §5.
+#
+# Everything below is a stable-rustfmt option. Nightly-only options
+# (imports_granularity, group_imports, etc.) are deliberately NOT
+# used because rust-toolchain.toml pins a stable channel.
+
+edition = "2021"
+max_width = 100
+use_small_heuristics = "Max"

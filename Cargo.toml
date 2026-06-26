@@ -1,0 +1,79 @@
+[workspace]
+resolver = "2"
+members = ["crates/soma"]
+
+[workspace.package]
+edition = "2021"
+rust-version = "1.86"
+license = "Apache-2.0"
+repository = "https://github.com/wnsdy95/SOMA"
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+anyhow = "1"
+thiserror = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json", "registry"] }
+rusqlite = { version = "0.31", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+base64 = "0.22"
+clap = { version = "4.5", features = ["derive", "env", "wrap_help"] }
+instant-distance = "0.6"
+toml = "0.8"
+dirs = "5"
+tempfile = "3"
+portable-pty = "0.8"
+libc = "0.2"
+
+[profile.release]
+panic = "abort"
+lto = "fat"
+codegen-units = 1
+opt-level = 3
+
+[profile.test]
+strip = "debuginfo"
+
+[workspace.lints.rust]
+unsafe_code = "deny"
+
+[workspace.lints.clippy]
+pedantic = { level = "deny", priority = -1 }
+module_name_repetitions = "allow"
+must_use_candidate = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+cast_precision_loss = "allow"
+cast_sign_loss = "allow"
+cast_possible_truncation = "allow"
+cast_possible_wrap = "allow"
+cast_lossless = "allow"
+similar_names = "allow"
+too_many_lines = "allow"
+too_many_arguments = "allow"
+doc_markdown = "allow"
+format_push_string = "allow"
+manual_let_else = "allow"
+unreadable_literal = "allow"
+items_after_statements = "allow"
+map_unwrap_or = "allow"
+float_cmp = "allow"
+default_trait_access = "allow"
+needless_pass_by_value = "allow"
+redundant_closure_for_method_calls = "allow"
+many_single_char_names = "allow"
+explicit_iter_loop = "allow"
+ignored_unit_patterns = "allow"
+single_match_else = "allow"
+ptr_as_ptr = "allow"
+match_same_arms = "allow"
+if_not_else = "allow"
+unused_async = "allow"
+unnested_or_patterns = "allow"
+uninlined_format_args = "allow"
+struct_field_names = "allow"
+borrow_as_ptr = "allow"
+ref_as_ptr = "allow"
+bool_to_int_with_if = "allow"
+unnecessary_wraps = "allow"

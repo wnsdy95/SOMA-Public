@@ -1,0 +1,11 @@
+# Clippy thresholds, workspace-wide.
+# Design: docs/discussions/0003-ci-matrix-design.md §6.
+#
+# These are per-lint *tuning*, not allow-lists. We keep the default
+# warn set ("all + pedantic-minus-noisy") and only loosen specific
+# numeric thresholds that would otherwise fire on reasonable code
+# for a systems crate of this shape. Every loosen is a micro-ADR.
+
+cognitive-complexity-threshold = 25
+type-complexity-threshold      = 250
+too-many-arguments-threshold   = 8

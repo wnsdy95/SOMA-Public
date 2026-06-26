@@ -1,0 +1,13 @@
+{
+  "task_frame_query": "Review this editor completion before accepting it.",
+  "project": "SOMA",
+  "session_id": "client-session-id",
+  "client": "cursor",
+  "protocol_contract": "soma-cloud-context",
+  "artifact_version": 1,
+  "output_text": "Cloud model response text goes here.",
+  "decision": "accept",
+  "local_claim_extractor": false,
+  "proposal_action": "request_verification",
+  "proposal_reason": "client hook captured cloud output for local review"
+}

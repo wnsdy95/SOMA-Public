@@ -1,0 +1,351 @@
+{
+  "backend_status": {
+    "baseline": "hnsw",
+    "candidate": "hopfield",
+    "candidate_effective": "hopfield",
+    "cognitive_feature_enabled": true,
+    "note": "diagnostic only; this command does not change the default MCP/ContextEnvelope backend"
+  },
+  "case_source": {
+    "kind": "corpus",
+    "path": "docs/evals/context-ranking-dogfood-corpus.jsonl"
+  },
+  "comparison": {
+    "case_count": 16,
+    "cases": [
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          1,
+          7,
+          9,
+          10,
+          8
+        ],
+        "hopfield_episode_ids": [
+          1,
+          7,
+          9,
+          10,
+          3
+        ],
+        "overlap_at_k": 4,
+        "query": "SOMA product identity after reset"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          2,
+          9,
+          1,
+          5,
+          7
+        ],
+        "hopfield_episode_ids": [
+          2,
+          9,
+          1,
+          5,
+          7
+        ],
+        "overlap_at_k": 5,
+        "query": "cloud local bridge contract paths"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          3,
+          5,
+          10,
+          8,
+          4
+        ],
+        "hopfield_episode_ids": [
+          3,
+          5,
+          9,
+          10,
+          4
+        ],
+        "overlap_at_k": 4,
+        "query": "optional quality modules retention rule"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          4,
+          2,
+          10,
+          3,
+          8
+        ],
+        "hopfield_episode_ids": [
+          4,
+          2,
+          3,
+          10,
+          8
+        ],
+        "overlap_at_k": 5,
+        "query": "correction loop stale voice claim"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          5,
+          2,
+          3,
+          1,
+          10
+        ],
+        "hopfield_episode_ids": [
+          5,
+          2,
+          3,
+          1,
+          10
+        ],
+        "overlap_at_k": 5,
+        "query": "local compiler deterministic fallback evidence citations"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          6,
+          4,
+          1,
+          3,
+          7
+        ],
+        "hopfield_episode_ids": [
+          6,
+          4,
+          1,
+          3,
+          7
+        ],
+        "overlap_at_k": 5,
+        "query": "voice audio legacy surface after reset"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          7,
+          1,
+          10,
+          5,
+          8
+        ],
+        "hopfield_episode_ids": [
+          7,
+          1,
+          10,
+          6,
+          5
+        ],
+        "overlap_at_k": 4,
+        "query": "MemoryPack retrieval substrate not product core"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          8,
+          3,
+          4,
+          10,
+          2
+        ],
+        "hopfield_episode_ids": [
+          8,
+          3,
+          2,
+          10,
+          4
+        ],
+        "overlap_at_k": 5,
+        "query": "Hopfield promotion corpus recall precision proof"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          6,
+          7,
+          1,
+          10,
+          4
+        ],
+        "hopfield_episode_ids": [
+          7,
+          6,
+          10,
+          1,
+          4
+        ],
+        "overlap_at_k": 5,
+        "query": "current non-core product surfaces"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          2,
+          3,
+          4,
+          8,
+          5
+        ],
+        "hopfield_episode_ids": [
+          2,
+          3,
+          4,
+          8,
+          5
+        ],
+        "overlap_at_k": 5,
+        "query": "ContextEnvelope bridge read query inspect correction fallback"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          3,
+          8,
+          9,
+          4,
+          5
+        ],
+        "hopfield_episode_ids": [
+          3,
+          8,
+          4,
+          9,
+          5
+        ],
+        "overlap_at_k": 5,
+        "query": "quality modules evidence ranking scoping compression conflict"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          4,
+          2,
+          8,
+          3,
+          10
+        ],
+        "hopfield_episode_ids": [
+          4,
+          2,
+          8,
+          3,
+          10
+        ],
+        "overlap_at_k": 5,
+        "query": "correction stale voice open decisions relevant memory"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          10,
+          6,
+          1,
+          7,
+          8
+        ],
+        "hopfield_episode_ids": [
+          6,
+          10,
+          7,
+          1,
+          8
+        ],
+        "overlap_at_k": 5,
+        "query": "legacy audio voice chat companion not product"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          7,
+          5,
+          8,
+          3,
+          2
+        ],
+        "hopfield_episode_ids": [
+          7,
+          5,
+          8,
+          3,
+          2
+        ],
+        "overlap_at_k": 5,
+        "query": "developer debug MemoryPack ContextEnvelope artifact"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          5,
+          2,
+          7,
+          1,
+          10
+        ],
+        "hopfield_episode_ids": [
+          5,
+          2,
+          7,
+          1,
+          10
+        ],
+        "overlap_at_k": 5,
+        "query": "local compiler cited fallback deterministic bridge"
+      },
+      {
+        "compared_at_k": 5,
+        "hnsw_episode_ids": [
+          8,
+          9,
+          3,
+          2,
+          10
+        ],
+        "hopfield_episode_ids": [
+          8,
+          9,
+          2,
+          3,
+          10
+        ],
+        "overlap_at_k": 5,
+        "query": "Hopfield promotion ranking corpus proof diagnostics"
+      }
+    ],
+    "equal_average_precision_case_count": 12,
+    "hnsw_better_average_precision_case_count": 4,
+    "hnsw_mean_average_precision_at_k": 0.8922742605209351,
+    "hnsw_mean_reciprocal_rank_at_k": 1.0,
+    "hnsw_precision_at_k": 0.36250001192092896,
+    "hnsw_recall_at_k": 0.8787878751754761,
+    "hnsw_relevant_hits_at_k": 29,
+    "hnsw_result_count_at_k": 80,
+    "hopfield_better_average_precision_case_count": 0,
+    "hopfield_mean_average_precision_at_k": 0.8688368201255798,
+    "hopfield_mean_reciprocal_rank_at_k": 0.96875,
+    "hopfield_precision_at_k": 0.36250001192092896,
+    "hopfield_promotable_by_recall_precision": false,
+    "hopfield_recall_at_k": 0.8787878751754761,
+    "hopfield_relevant_hits_at_k": 29,
+    "hopfield_result_count_at_k": 80,
+    "mean_overlap_ratio_at_k": 0.9624999761581421,
+    "overlap_case_count": 16,
+    "rankings_differ_count": 9,
+    "relevant_episode_count": 33,
+    "scored_case_count": 16
+  },
+  "expected_episode_ids": [],
+  "kind": "context_relevant_memory_ranking_comparison",
+  "scope": {
+    "project": "SOMA",
+    "query": null,
+    "session_id": "context-ranking-dogfood"
+  },
+  "semantic_k": 5
+}

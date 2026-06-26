@@ -1,0 +1,622 @@
+{
+  "case_source": {
+    "kind": "corpus",
+    "path": "docs/evals/client-integration-corpus.jsonl"
+  },
+  "cases": [
+    {
+      "checks": {
+        "claude_code_launches_mcp_serve": true,
+        "codex_app_check_valid": true,
+        "codex_app_launches_mcp_serve": true,
+        "continue_check_valid": true,
+        "continue_launches_mcp_serve": true,
+        "cursor_launches_mcp_serve": true,
+        "no_legacy_context_injection_surface": true
+      },
+      "description": "Generated MCP registrations for Cursor, Continue, and Claude Code must launch `soma mcp-serve`, pass command checks where available, and contain no MemoryPack, prompt-prefix, persona, voice, or audio path.",
+      "id": "mcp_registration_config_gate",
+      "metrics": {
+        "checked_clients": [
+          "cursor",
+          "continue",
+          "claude-code",
+          "codex-app"
+        ],
+        "codex_app_check_names": [
+          "command_exists",
+          "command_is_absolute",
+          "launches_mcp_serve",
+          "no_prompt_prefix_or_persona_path"
+        ],
+        "continue_check_names": [
+          "command_exists",
+          "command_is_absolute",
+          "launches_mcp_serve",
+          "no_prompt_prefix_or_persona_path"
+        ],
+        "legacy_forbidden_terms": [
+          "memory-pack",
+          "prompt-prefix",
+          "UserPromptSubmit",
+          "persona",
+          "voice",
+          "speak",
+          "transcribe",
+          "chat --voice"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "all_clients_plan_only": true,
+        "boundary_denies_private_hook_install": true,
+        "cursor_project_hook_template_named": true,
+        "hook_plan_cloud_output_echo_is_not_verification": true,
+        "hook_plan_includes_cloud_output_protocol_echo_template": true,
+        "no_private_hook_overclaim": true,
+        "private_client_record_binding_proof_step_named": true,
+        "private_client_steps_are_normalizers": true,
+        "proof_commands_named": true,
+        "review_ui_step_named": true,
+        "wrapper_entrypoints_named": true
+      },
+      "description": "Generated hook plans are plan-only artifacts: they name adapter and read-only review UI wrappers plus proof commands with release-grade evidence-source templates, installed-config preflight, app-hook proof, UI-only render proof, storage-gated review-action proof, binding-proof ledger steps, a checked-in Cursor project hook template, and a structured cloud-output capture template that echoes the soma-cloud-context protocol while explicitly refusing to claim private lifecycle-hook installation, in-client rendering, automatic turn capture, or verification trust from echo alone.",
+      "id": "hook_plan_boundary_gate",
+      "metrics": {
+        "checked_clients": [
+          "claude-code",
+          "codex-app",
+          "continue",
+          "cursor"
+        ],
+        "proof_command_terms": [
+          "tools/mcp-adapter-config-smoke.sh",
+          "tools/context-bridge-smoke.sh",
+          "tools/client-integration-eval.sh",
+          "trust-audit"
+        ],
+        "required_cloud_output_echo_fields": [
+          "artifact_version",
+          "handoff_id",
+          "protocol_contract"
+        ],
+        "required_wrapper_entrypoints": [
+          "tools/soma-adapter-cloud-output.sh",
+          "tools/soma-adapter-lifecycle.sh",
+          "tools/soma-adapter-spool-append.sh",
+          "tools/soma-adapter-spool-watch.sh",
+          "tools/soma-codex-notify-bridge.sh",
+          "tools/soma-review-actions.sh",
+          "tools/soma-review-batch-template.sh",
+          "tools/soma-review-digest-ack.sh",
+          "tools/soma-review-digest.sh",
+          "tools/soma-review-render.sh",
+          "tools/soma-review-report.sh"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "binding_manifests_are_reference_contracts": true,
+        "binding_manifests_include_sample_events": true,
+        "binding_manifests_name_lifecycle_and_review_wrappers": true,
+        "binding_manifests_name_private_event_sources": true,
+        "binding_manifests_refuse_install_proof": true,
+        "binding_smoke_asserts_rendered_control_id_coverage": true,
+        "binding_smoke_checks_codex_notify_bridge_heartbeat": true,
+        "binding_smoke_checks_cursor_app_hook_recording_runbook": true,
+        "binding_smoke_checks_cursor_hook_readiness_probe": true,
+        "binding_smoke_checks_cursor_release_proof_runbook": true,
+        "binding_smoke_checks_cursor_render_review_action_recording_runbooks": true,
+        "binding_smoke_checks_generic_release_proof_runbook": true,
+        "binding_smoke_checks_project_cursor_hook": true,
+        "binding_smoke_discovers_installed_config_candidates": true,
+        "binding_smoke_enforces_app_hook_binding_nonce": true,
+        "binding_smoke_enforces_app_hook_temporal_binding": true,
+        "binding_smoke_enforces_ready_proof_identity_coherence": true,
+        "binding_smoke_enforces_render_operator_confirmation": true,
+        "binding_smoke_executes_reference_contract": true,
+        "binding_smoke_fingerprints_evidence_artifacts": true,
+        "binding_smoke_prepares_installed_config_binding_nonce": true,
+        "binding_smoke_records_app_hook_with_private_event_source": true,
+        "binding_smoke_records_observed_event_file_proof": true,
+        "binding_smoke_records_review_action_proof": true,
+        "binding_smoke_records_ui_only_render_proof": true,
+        "binding_smoke_renders_complete_installed_config": true,
+        "binding_smoke_renders_read_only_evidence_bundle": true,
+        "binding_smoke_renders_real_app_proof_kit": true,
+        "binding_smoke_renders_render_evidence_packet_template": true,
+        "binding_smoke_replays_evidence_artifact_fingerprints": true,
+        "binding_smoke_replays_installed_config_lifecycle_hook": true,
+        "binding_smoke_reports_readiness_status": true,
+        "binding_smoke_writes_scan_ready_installed_config": true,
+        "mcp_client_binding_status_exposes_operator_flow": true,
+        "mcp_evidence_bundle_exposes_proof_readiness": true,
+        "mcp_evidence_bundle_exposes_proof_session": true,
+        "mcp_evidence_bundle_exposes_proof_session_runbook": true,
+        "mcp_evidence_bundle_exposes_proof_session_runbook_progress": true,
+        "mcp_evidence_bundle_renders_read_only_operator_gaps": true,
+        "mcp_install_plan_renders_proof_free_config": true,
+        "mcp_operator_flow_exports_record_proof_mcp_templates": true,
+        "mcp_proof_session_exports_operator_runbook": true,
+        "mcp_proof_session_exports_operator_runbook_progress": true,
+        "mcp_proof_session_renders_compact_card": true,
+        "mcp_proof_session_runbook_exports_record_proof_mcp_templates": true,
+        "mcp_proof_session_stages_export_record_proof_mcp_templates": true,
+        "mcp_record_client_binding_reference_proof": true,
+        "mcp_record_client_binding_requires_operator_confirmation": true,
+        "mcp_render_evidence_packet_renders_proof_free_template": true
+      },
+      "description": "Checked-in Cursor and Continue binding manifests must be reference contracts that name lifecycle, private event_source markers, per-install binding nonce, spool, and read-only review wrappers, include executable sample events, refuse private install proof, pass the binding smoke, verify the checked-in Cursor project hook template writes SOMA-compatible private events without recording release proof, render a read-only Cursor hook readiness probe over installed config, Cursor hook logs, adapter spool metadata, and proof-session status, verify the operator-confirmed Cursor app-hook proof recorder refuses missing confirmations and records only observed_app_hook when readiness has matching private evidence, verify the operator-confirmed Cursor render and review-action proof recorders refuse missing confirmations, record UI-only render proof without claiming review action, and reach release-ready proof status only after storage-gated review-action evidence, verify the Cursor release proof runbook can record the ready app-hook, render, and review-action chain in order and hand off to strict hardening, verify the generic release proof runbook can record a Continue app-hook, render, and review-action chain only through the shared proof recorders and explicit confirmations, render a real-app proof kit with proof-level readiness verdicts, discover installed config candidates, render a read-only evidence bundle of readiness/discovery/config-preview/proof-kit/operator-gap checks plus a proof_session release gate and next_operator_step, prepare an installed-config nonce snippet, render and write proof-free installed config artifacts, render a proof-free in-client render evidence packet template from a review-render report, replay the written installed config through the lifecycle wrapper before app-hook proof, expose the same proof-free setup surface, the read-only evidence bundle, the dedicated compact proof-session summary with a schema-versioned operator runbook and progress counters, the proof-status operator flow, MCP record-proof call templates in operator flow, proof-session stages, and proof-session runbooks with release-grade evidence-source templates, a strictly bounded MCP proof-recording surface, and the proof-free render evidence packet through MCP, record/list observed-event-file proof, preflight installed config shape, record observed_app_hook only with matching private event_source and binding_nonce evidence plus wrapper writer metadata, temporal binding, operator confirmation, and release-grade evidence source, record UI-only render proof only with operator confirmation, release-grade evidence source, and structured soma.in_client_render_evidence.v1 evidence bound to the target client, review-render report fingerprint, workbench version, interaction contract version, named visible review surfaces, and rendered control_id coverage for current review actions both globally and inside the visible action_buttons surface when actions exist, record observed_review_action only when a rendered control_id produces a storage-gated soma_review_action report with non-cloud verification evidence plus release-grade evidence source, and derive read-only readiness that blocks changed artifacts, mismatched installed-config identity, or a missing review-action proof.",
+      "id": "client_binding_manifest_gate",
+      "metrics": {
+        "binding_clients": [
+          "codex-app",
+          "continue",
+          "cursor"
+        ],
+        "binding_manifest_paths": [
+          "tools/client-bindings/cursor-soma-binding.json.example",
+          "tools/client-bindings/continue-soma-binding.json.example",
+          "tools/client-bindings/codex-app-soma-binding.json.example"
+        ],
+        "binding_smoke_summary": [
+          "pass: 125",
+          "fail: 0",
+          "ALL GREEN"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "strict_hardening_app_hook_uses_installed_config_replay": true,
+        "strict_hardening_blocking_control_plan_has_preflight_and_followup": true,
+        "strict_hardening_control_checks_export_mcp_call_templates": true,
+        "strict_hardening_control_plan_exports_primary_mcp_call_template": true,
+        "strict_hardening_report_consumes_client_proof_session": true,
+        "strict_hardening_report_consumes_client_proof_session_runbook": true,
+        "strict_hardening_report_exposes_empty_control_plan_after_pass": true,
+        "strict_hardening_report_exposes_operator_card": true,
+        "strict_hardening_report_has_no_operator_actions_after_pass": true,
+        "strict_hardening_report_includes_checked_in_eval_report_gate": true,
+        "strict_hardening_report_includes_control_binding_manifest_gate": true,
+        "strict_hardening_report_includes_control_id_template_gate": true,
+        "strict_hardening_report_includes_latent_interface_gate": true,
+        "strict_hardening_report_includes_memory_lifecycle_source_of_truth_gate": true,
+        "strict_hardening_report_includes_objective_coverage": true,
+        "strict_hardening_report_includes_review_backlog_gate": true,
+        "strict_hardening_report_includes_review_interaction_gate": true,
+        "strict_hardening_report_includes_task_frame_retention_gate": true,
+        "strict_hardening_report_keeps_release_gate_read_only": true,
+        "strict_hardening_report_marks_all_objectives_pass_after_ready_binding": true,
+        "strict_hardening_report_passes_with_ready_binding": true,
+        "strict_hardening_report_replays_client_artifacts": true,
+        "strict_hardening_report_requires_task_frame_projection_gate": true,
+        "strict_hardening_required_client_matrix_exports_external_proof_requirements": true,
+        "strict_hardening_required_client_proof_matrix": true,
+        "strict_hardening_required_clients_block_partial_readiness": true,
+        "strict_hardening_retention_gate_exposes_cleanup_hints": true,
+        "strict_hardening_review_clear_blocks_pending_backlog": true
+      },
+      "description": "A strict private-client release gate must fail without ready proof, include review-backlog, memory-lifecycle source-of-truth, review-interaction-contract, review-control-binding-manifest with rendered control_id template binding, TaskFrame-retention hygiene gates with cleanup hints, a required TaskFrame projection privacy gate for cloud-facing release checks, latent-interface packet no-vector/textual-fallback gate, checked-in eval report evidence gate including the latent-proxy parity report, a read-only structured control_plan with dedicated proof_session primary MCP call templates, proof-session runbook preflight checks, check-level MCP call templates with client/proof/evidence artifact placeholders plus release-grade evidence-source labels, optional evidence-bundle follow-up for fuller setup guidance, and follow-up verification for blocking gates, a top-level operator_card with mirrored operator_next_action_id and operator_next_action_label for release UIs that reflects the current proof-session next step, plus a nine-area objective coverage matrix for Memory substrate, Trust boundary, Local control plane, Cloud-local protocol, Review/verification UX, Semantic learning, Evaluation, Client integration, and Product hardening; it passes only after observed_app_hook, observed_in_client_render, and observed_review_action proof rows replay their stored artifacts cleanly with no pending review work, a concrete passing TaskFrame projection, and no stale unreferenced TaskFrame retention candidates, requires the app-hook proof used by hardening to come from installed-config lifecycle wrapper replay rather than a hand-written event file, consumes the client proof_session release gate and runbook schema, exposes a per-required-client proof matrix for ready/missing/unready clients with proof-session CLI, MCP call arguments, per-missing-proof external_proof_requirements for private evidence artifacts, operator confirmation keys, release-grade confirmation keys, release evidence source policy schema, an explicit evidence_source replacement requirement plus release-grade source template, and record-proof MCP templates that carry concrete private_client_operator_observed source labels, fails an all-required-clients release when one required client is missing or unready, and fails the stricter review-clear gate when a pending cloud draft appears; the hardening report stays read-only and emits no follow-up actions or control-plan steps after pass.",
+      "id": "client_product_hardening_gate",
+      "metrics": {
+        "blocking_control_plan": {
+          "blocking_step_count": 1,
+          "followup_verification_count": 3,
+          "preflight_check_count": 5,
+          "ready": false,
+          "step_count": 1
+        },
+        "checked_in_eval_reports": {
+          "failed_report_count": 0,
+          "passed": true,
+          "report_count": 5,
+          "suites": [
+            {
+              "passed": true,
+              "required_outcome": "summary.trust_boundary_passed=true",
+              "suite": "context_trust_loop"
+            },
+            {
+              "passed": true,
+              "required_outcome": "summary.semantic_learning_quality_passed=true",
+              "suite": "semantic_learning_quality"
+            },
+            {
+              "passed": true,
+              "required_outcome": "summary.client_integration_contract_passed=true",
+              "suite": "client_integration"
+            },
+            {
+              "passed": true,
+              "required_outcome": "summary.latent_proxy_eval_passed=true",
+              "suite": "latent_proxy_eval"
+            },
+            {
+              "passed": true,
+              "required_outcome": "comparison.hopfield_promotable_by_recall_precision=false",
+              "suite": "context_ranking_dogfood"
+            }
+          ],
+          "total_case_count": 39
+        },
+        "client_binding": {
+          "artifact_failure_count": 0,
+          "coherence_failure_count": 0,
+          "non_release_evidence_source_count": 0,
+          "non_release_proof_levels": [],
+          "primary_coherence_failures": [],
+          "primary_non_release_evidence_sources": [],
+          "primary_readiness": "real_app_hook_in_client_render_and_review_action_observed",
+          "proofs_found": 3,
+          "ready_client_count": 1
+        },
+        "client_binding_required": true,
+        "control_plan": {
+          "blocking_step_count": 0,
+          "operator_evidence_step_count": 0,
+          "ready": true,
+          "step_count": 0
+        },
+        "envelope": {
+          "legacy_memory_tier_projection_layers": [],
+          "memory_tier_compatibility_passed": true,
+          "relevant_memory_layer_values": [
+            "semantic"
+          ]
+        },
+        "gate_count": 11,
+        "latent_interface": {
+          "hidden_state_injection_supported": false,
+          "passed": true,
+          "proxy_binding_count": 0,
+          "schema": "soma.latent_interface_packet.v1",
+          "vector_payload_included": false
+        },
+        "objective_coverage": {
+          "fail_count": 0,
+          "pass_count": 9,
+          "total_count": 9,
+          "warning_count": 0
+        },
+        "operator_card": {
+          "control_plan_ready": true,
+          "operator_next_action_id": "release_gate_passed",
+          "operator_next_action_label": "Release gate passed",
+          "primary_client": null,
+          "primary_gate": null,
+          "proof_session_next_step_id": null,
+          "status": "pass"
+        },
+        "required_clients_partial_readiness": {
+          "missing_required_clients": [
+            "continue"
+          ],
+          "operator_card": {
+            "operator_next_action_id": "render_client_binding_proof_session",
+            "operator_next_action_label": "Render client binding proof session",
+            "primary_client": "continue",
+            "primary_next_cli": "soma adapter-binding-proof --client continue --proof-session",
+            "proof_session_next_step_id": "render_client_binding_proof_session"
+          },
+          "primary_cli": "soma adapter-binding-proof --client continue --proof-session",
+          "proof_matrix": [
+            {
+              "client": "continue",
+              "external_proof_requirements": [
+                {
+                  "evidence_source": "required_client_proof_matrix_external_requirement",
+                  "evidence_source_replacement_required": true,
+                  "operator_confirmation_key": "operator_confirm_real_app_invocation",
+                  "proof_level": "observed_app_hook",
+                  "record_mcp_tool": "soma_client_binding_record_proof",
+                  "release_evidence_source_policy_schema": "soma.client_binding_release_evidence_source_policy.v1",
+                  "release_grade_confirmation_key": "operator_confirm_release_grade_evidence",
+                  "release_grade_evidence_source_template": "private_client_operator_observed_continue_observed_app_hook",
+                  "required_external_evidence_count": 5
+                },
+                {
+                  "evidence_source": "required_client_proof_matrix_external_requirement",
+                  "evidence_source_replacement_required": true,
+                  "operator_confirmation_key": "operator_confirm_in_client_render",
+                  "proof_level": "observed_in_client_render",
+                  "record_mcp_tool": "soma_client_binding_record_proof",
+                  "release_evidence_source_policy_schema": "soma.client_binding_release_evidence_source_policy.v1",
+                  "release_grade_confirmation_key": "operator_confirm_release_grade_evidence",
+                  "release_grade_evidence_source_template": "private_client_operator_observed_continue_observed_in_client_render",
+                  "required_external_evidence_count": 6
+                },
+                {
+                  "evidence_source": "required_client_proof_matrix_external_requirement",
+                  "evidence_source_replacement_required": true,
+                  "operator_confirmation_key": "operator_confirm_review_action",
+                  "proof_level": "observed_review_action",
+                  "record_mcp_tool": "soma_client_binding_record_proof",
+                  "release_evidence_source_policy_schema": "soma.client_binding_release_evidence_source_policy.v1",
+                  "release_grade_confirmation_key": "operator_confirm_release_grade_evidence",
+                  "release_grade_evidence_source_template": "private_client_operator_observed_continue_observed_review_action",
+                  "required_external_evidence_count": 6
+                }
+              ],
+              "missing_proof_levels": [
+                "observed_app_hook",
+                "observed_in_client_render",
+                "observed_review_action"
+              ],
+              "next_step_id": "render_client_binding_proof_session",
+              "proof_session_cli": "soma adapter-binding-proof --client continue --proof-session",
+              "proof_session_mcp_arguments": {
+                "client": "continue"
+              },
+              "proof_session_mcp_tool": "soma_client_binding_proof_session",
+              "release_gate": "fail",
+              "status": "missing"
+            },
+            {
+              "client": "cursor",
+              "external_proof_requirements": [],
+              "missing_proof_levels": [],
+              "next_step_id": null,
+              "proof_session_cli": "soma adapter-binding-proof --client cursor --proof-session",
+              "proof_session_mcp_arguments": {
+                "client": "cursor"
+              },
+              "proof_session_mcp_tool": "soma_client_binding_proof_session",
+              "release_gate": "pass",
+              "status": "ready"
+            }
+          ],
+          "required_client_count": 2,
+          "required_clients": [
+            "continue",
+            "cursor"
+          ],
+          "required_ready_client_count": 1,
+          "status": "fail",
+          "target_clients": [
+            "continue"
+          ]
+        },
+        "review_control_binding": {
+          "binding_count": 0,
+          "client": "cursor",
+          "expected_control_count": 0,
+          "passed": true,
+          "schema": "soma.review_control_binding_manifest.v1"
+        },
+        "review_interaction": {
+          "action_count": 0,
+          "client": "cursor",
+          "evidence_action_count": 0,
+          "passed": true
+        },
+        "status": "pass",
+        "task_frame_projection_required": true,
+        "task_frame_retention": {
+          "cleanup_allowed": false,
+          "eligible_count": 0,
+          "passed": true,
+          "retention_days": 30,
+          "status": "clean"
+        }
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "cloud_output_capture_exposes_protocol_contract": true,
+        "cloud_output_capture_exposes_protocol_echo_fields": true,
+        "cloud_output_wrapper_mentions_cloud_draft": true,
+        "continue_devdata_collector_exists_and_is_executable": true,
+        "continue_devdata_collector_marks_synthetic_posts_non_release": true,
+        "continue_devdata_collector_normalizes_private_event_without_proof": true,
+        "continue_devdata_collector_prints_local_destination_snippet": true,
+        "continue_devdata_collector_reads_installed_binding_nonce": true,
+        "continue_devdata_installer_exists_and_is_executable": true,
+        "continue_devdata_installer_is_dry_run_first_and_proof_free": true,
+        "continue_devdata_installer_writes_idempotently_and_merges_data": true,
+        "lifecycle_assistant_response_drains_to_cloud_draft": true,
+        "lifecycle_assistant_response_normalizes_to_cloud_output": true,
+        "lifecycle_assistant_response_queues_verification_without_promotion": true,
+        "proof_scripts_exist_and_are_executable": true,
+        "proof_scripts_name_hook_plan_and_bridge_smoke": true,
+        "wrappers_are_shell_syntax_valid": true,
+        "wrappers_exist_and_are_executable": true
+      },
+      "description": "Checked-in adapter wrappers and proof scripts must exist, be executable, be shell-syntax valid, expose the soma-cloud-context protocol contract and capture echo fields, normalize client assistant_response hooks to cloud_output events, drain those events into cloud_draft claims, and keep automatic assistant-output capture queued for independent verification instead of promotion.",
+      "id": "adapter_wrapper_contract_gate",
+      "metrics": {
+        "automatic_assistant_response_capture": {
+          "captured_cloud_outputs": 1,
+          "claim_lifecycle_state": "short_term_candidate",
+          "claim_source_type": "cloud_draft",
+          "client": "continue",
+          "durable_promotion_trust": false,
+          "normalized_kind": "cloud_output",
+          "proposal_action": "request_verification",
+          "review_reason": "cloud_draft_requires_user_tool_test_local_or_correction_verification"
+        },
+        "continue_devdata_collector": {
+          "config_destination": "http://127.0.0.1:8766/continue-devdata",
+          "contract": "continue_devdata_posts_to_soma_adapter_lifecycle_without_proof",
+          "event_source": "continue_private_lifecycle_hook",
+          "hook_adapter": "continue_devdata_collector",
+          "lifecycle_event": "assistant_response",
+          "proposal_action": "request_verification",
+          "release_grade_candidate": true,
+          "synthetic_manual_invocation_policy": "non_release_debug_only"
+        },
+        "continue_devdata_installer": {
+          "destination": "http://127.0.0.1:8766/continue-devdata",
+          "dry_run_status": "would_update",
+          "idempotent_status": "already_installed",
+          "merge_strategy": "insert_into_existing_data",
+          "write_status": "updated"
+        },
+        "proof_paths": [
+          ".cursor/hooks/soma-lifecycle.sh",
+          "tools/soma-client-hook-readiness.sh",
+          "tools/soma-client-record-app-hook-proof.sh",
+          "tools/soma-client-record-render-proof.sh",
+          "tools/soma-client-record-review-action-proof.sh",
+          "tools/soma-client-release-proof-runbook.sh",
+          "tools/soma-codex-notify-install.sh",
+          "tools/soma-cursor-hook-readiness.sh",
+          "tools/soma-cursor-record-app-hook-proof.sh",
+          "tools/soma-cursor-record-render-proof.sh",
+          "tools/soma-cursor-record-review-action-proof.sh",
+          "tools/soma-cursor-release-proof-runbook.sh",
+          "tools/mcp-adapter-config-smoke.sh",
+          "tools/context-bridge-smoke.sh",
+          "tools/client-binding-smoke.sh"
+        ],
+        "shell_syntax_valid": {
+          ".cursor/hooks/soma-lifecycle.sh": true,
+          "tools/client-binding-smoke.sh": true,
+          "tools/context-bridge-smoke.sh": true,
+          "tools/mcp-adapter-config-smoke.sh": true,
+          "tools/soma-adapter-cloud-output.sh": true,
+          "tools/soma-adapter-lifecycle.sh": true,
+          "tools/soma-adapter-spool-append.sh": true,
+          "tools/soma-adapter-spool-watch.sh": true,
+          "tools/soma-client-hook-readiness.sh": true,
+          "tools/soma-client-record-app-hook-proof.sh": true,
+          "tools/soma-client-record-render-proof.sh": true,
+          "tools/soma-client-record-review-action-proof.sh": true,
+          "tools/soma-client-release-proof-runbook.sh": true,
+          "tools/soma-codex-notify-bridge.sh": true,
+          "tools/soma-codex-notify-install.sh": true,
+          "tools/soma-cursor-hook-readiness.sh": true,
+          "tools/soma-cursor-record-app-hook-proof.sh": true,
+          "tools/soma-cursor-record-render-proof.sh": true,
+          "tools/soma-cursor-record-review-action-proof.sh": true,
+          "tools/soma-cursor-release-proof-runbook.sh": true,
+          "tools/soma-review-actions.sh": true,
+          "tools/soma-review-digest-ack.sh": true,
+          "tools/soma-review-digest.sh": true,
+          "tools/soma-review-render.sh": true,
+          "tools/soma-review-report.sh": true
+        },
+        "wrapper_paths": [
+          "tools/soma-codex-notify-bridge.sh",
+          "tools/soma-adapter-lifecycle.sh",
+          "tools/soma-adapter-spool-append.sh",
+          "tools/soma-adapter-spool-watch.sh",
+          "tools/soma-adapter-cloud-output.sh"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "review_actions_are_review_action_targets": true,
+        "review_actions_include_ui_affordance_contract": true,
+        "review_actions_include_verification_templates": true,
+        "review_actions_wrapper_returns_action_options": true,
+        "review_digest_ack_wrapper_updates_notification_state_only": true,
+        "review_digest_wrapper_returns_read_only_notification_payload": true,
+        "review_render_html_workbench_artifact": true,
+        "review_render_includes_binding_status_preflight": true,
+        "review_render_includes_control_binding_manifest": true,
+        "review_render_includes_interaction_contract": true,
+        "review_render_includes_render_evidence_template": true,
+        "review_render_includes_workbench_contract": true,
+        "review_render_wrapper_returns_client_specific_render_plan": true,
+        "review_report_embeds_action_plan": true,
+        "review_report_exposes_local_private_projection_reason": true,
+        "review_report_includes_decision_packets": true,
+        "review_report_includes_task_frame_projection_audit": true,
+        "review_report_surfaces_pending_cloud_draft": true,
+        "review_report_wrapper_returns_read_only_payload": true,
+        "review_wrappers_are_shell_syntax_valid": true,
+        "review_wrappers_exist_and_are_executable": true
+      },
+      "description": "Reference review wrappers must render a read-only review report, compact review digest, digest ack cooldown state, client-specific review render plan, static HTML workbench artifact, binding-readiness preflight, UI interaction contract, client workbench contract, control binding manifest, in-client render evidence template, item-level decision packets, flattened action options, verification evidence templates, and explicit local-private projection audit reason from a pending cloud_draft without mutating verification or proposal state.",
+      "id": "client_review_surface_gate",
+      "metrics": {
+        "captured_claim_count": 1,
+        "review_action_count": 8,
+        "review_action_target_types": [
+          "claim",
+          "proposal"
+        ],
+        "review_digest_ack_count": 1,
+        "review_digest_notification_count": 0,
+        "review_render_action_count": 8,
+        "review_render_control_binding_count": 8,
+        "review_render_html_bytes": 35433,
+        "review_render_primary_surface": "action_buttons",
+        "review_report_claim_count": 1,
+        "review_report_proposal_count": 1,
+        "review_wrapper_paths": [
+          "tools/soma-review-report.sh",
+          "tools/soma-review-digest.sh",
+          "tools/soma-review-digest-ack.sh",
+          "tools/soma-review-render.sh",
+          "tools/soma-review-actions.sh"
+        ],
+        "shell_syntax_valid": {
+          "tools/soma-review-actions.sh": true,
+          "tools/soma-review-digest-ack.sh": true,
+          "tools/soma-review-digest.sh": true,
+          "tools/soma-review-render.sh": true,
+          "tools/soma-review-report.sh": true
+        }
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "post_action_review_queue_is_drained": true,
+        "review_action_applies_through_storage_gate": true,
+        "review_action_binds_rendered_control_id": true,
+        "review_action_promotes_cloud_draft_to_l3_after_trust": true,
+        "review_action_records_task_frame_outcome": true,
+        "review_action_records_tool_verification_event": true,
+        "review_action_rejects_missing_control_id": true,
+        "review_action_template_selected_from_action_options": true,
+        "review_action_trust_audit_stays_green": true
+      },
+      "description": "A client-rendered soma_review_action option must be executable as a confirm_and_apply review action only when its rendered control_id still matches a currently enabled action, must reject missing or stale control ids before mutation, then records trusted evidence, applies only through storage gates, records an evidence-backed TaskFrame outcome for later eval, drains the review queue, and leaves trust audit green.",
+      "id": "client_review_action_flow_gate",
+      "metrics": {
+        "apply_outcome": "applied",
+        "missing_control_id_error": "{\"error\":\"review action: invalid review action: review action requires control_id from a currently enabled review action option\",\"op\":\"context\"}",
+        "post_action_queue": {
+          "action_count": 0,
+          "claim_count": 0,
+          "proposal_count": 0
+        },
+        "promoted_claim_lifecycle": "long_term_memory",
+        "selected_action": {
+          "action": "confirm_and_apply",
+          "control_id": "proposal:1:confirm_and_apply",
+          "mcp_tool": "soma_review_action",
+          "target_id": 1,
+          "target_type": "proposal",
+          "ui_button_style": "primary",
+          "ui_group": "promotion"
+        },
+        "task_frame_outcome_count": 1,
+        "trust_audit_passed": true,
+        "verification_event_count": 1
+      },
+      "passed": true
+    }
+  ],
+  "kind": "client_integration_eval",
+  "summary": {
+    "case_count": 7,
+    "client_integration_contract_passed": true,
+    "failed_cases": [],
+    "failed_count": 0,
+    "legacy_context_injection_surface_detected": false,
+    "passed_count": 7,
+    "private_hook_overclaimed": false
+  }
+}

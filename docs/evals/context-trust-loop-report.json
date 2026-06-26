@@ -1,0 +1,194 @@
+{
+  "case_source": {
+    "kind": "corpus",
+    "path": "docs/evals/context-trust-loop-corpus.jsonl"
+  },
+  "cases": [
+    {
+      "checks": {
+        "apply_ready_skips_unverified_draft": true,
+        "proposal_id_verification_unlocks_l3": true,
+        "review_report_surfaces_cloud_draft": true,
+        "review_report_surfaces_task_frame_projection": true,
+        "trust_audit_passes": true
+      },
+      "description": "Cloud output enters as cloud_draft evidence, appears in the review report with its TaskFrame projection audit, is skipped by apply-ready before trusted verification, then promotes only after proposal-id verification.",
+      "id": "cloud_draft_promotion_gate",
+      "metrics": {
+        "apply_ready_after_verification": 1,
+        "apply_ready_before_verification": 0,
+        "captured_claim_count": 1,
+        "review_report_claim_count": 1,
+        "review_report_proposal_count": 1,
+        "review_report_task_frame_projection_count": 1
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "apply_ready_promotes_two_verified_claims_to_l3": true,
+        "manual_review_apply_promotes_semantic_fact": true,
+        "review_drain_skips_limited_diversity_semantic_fact": true,
+        "semantic_proposal_created_after_l3": true,
+        "semantic_proposals_skip_pre_l3": true,
+        "semantic_review_digest_ack_suppresses_repeat_notification": true,
+        "semantic_review_digest_surfaces_l4_notification": true,
+        "semantic_review_queue_marks_l4_digest_interrupt": true,
+        "stable_fact_projects_after_manual_apply": true,
+        "trust_audit_passes": true
+      },
+      "description": "Repeated verified L3 claims produce a semantic_fact promotion proposal, the review queue marks limited support diversity as a non-blocking L4 digest interrupt, the review digest surfaces it as a compact notification, ack suppresses repeated notifications during cooldown, automatic review drain skips limited-diversity L4 support, and the stable fact appears only after explicit single-proposal review apply.",
+      "id": "semantic_l4_gate",
+      "metrics": {
+        "semantic_after_l3_dry_run_proposed_count": 1,
+        "semantic_create_proposed_count": 1,
+        "semantic_manual_apply_outcome": "applied",
+        "semantic_pre_l3_proposed_count": 0,
+        "semantic_review_digest_after_ack_notification_count": 0,
+        "semantic_review_digest_notification_count": 1,
+        "semantic_review_drain_auto_applied_count": 0,
+        "semantic_review_interrupt_surface": "review_digest",
+        "stable_fact_count": 1,
+        "verified_l3_apply_count": 2
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "corrected_semantic_fact_stops_projecting": true,
+        "correction_projects_with_evidence": true,
+        "correction_supersedes_semantic_fact_claim": true,
+        "trust_audit_passes_after_correction": true
+      },
+      "description": "A user correction with a stale claim supersedes a matching semantic_fact claim through correction verification evidence, removes it from stable_facts projection, still projects the correction evidence, and leaves trust audit green.",
+      "id": "semantic_correction_invalidation_gate",
+      "metrics": {
+        "corrected_claim_record_count": 2,
+        "correction_count": 1,
+        "stable_fact_count_after_correction": 0
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "apply_ready_promotes_latent_claims_to_l3": true,
+        "latent_candidate_does_not_project_stable_fact": true,
+        "latent_candidate_routes_to_request_verification": true,
+        "latent_review_candidate_does_not_create_l4_proposal": true,
+        "review_drain_does_not_apply_latent_candidate": true,
+        "trust_audit_passes": true
+      },
+      "description": "Paraphrase-like verified L3 claims may produce a latent semantic review request, but they must not create or auto-apply an L4 semantic_fact proposal without later explicit review.",
+      "id": "latent_paraphrase_review_gate",
+      "metrics": {
+        "latent_create_review_proposed_count": 1,
+        "latent_dry_run_l4_proposed_count": 0,
+        "latent_dry_run_review_candidate_count": 1,
+        "latent_review_drain_auto_applied_count": 0,
+        "latent_review_report_proposal_count": 1,
+        "latent_stable_fact_count": 0,
+        "verified_l3_apply_count": 2
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "audit_reports_no_secret_like_projected_values": true,
+        "context_audit_passes_projection": true,
+        "mismatched_handoff_id_is_rejected": true,
+        "mismatched_protocol_echo_is_rejected": true,
+        "prompt_contains_cloud_local_handoff_id": true,
+        "prompt_contains_protocol_echo_fields": true,
+        "prompt_contains_redaction_marker": true,
+        "prompt_omits_secret_like_value": true
+      },
+      "description": "TaskFrame cloud projection scrubs secret-like values before context prompt output, emits a cloud-local handoff id and protocol echo fields, rejects mismatched handoff/protocol capture, and context audit confirms the projected cloud JSON has no secret-like values.",
+      "id": "redaction_projection_gate",
+      "metrics": {
+        "blocked_field_count": 0,
+        "prompt_contains_cloud_local_handoff_id": true,
+        "prompt_contains_protocol_echo_fields": true,
+        "prompt_contains_redaction_marker": true,
+        "secret_like_projected_value_count": 0,
+        "task_frame_id": 6
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "apply_ready_does_not_promote_contradicted_claim": true,
+        "contradicted_verification_marks_claim_corrected": true,
+        "proposal_waits_for_confirmed_verification": true,
+        "trust_audit_passes": true
+      },
+      "description": "Contradicted cloud-draft claims become corrected evidence and apply-ready cannot promote their proposal to long-term memory.",
+      "id": "negative_verification_blocks_promotion",
+      "metrics": {
+        "apply_ready_applied_count": 0,
+        "apply_ready_item_count": 1,
+        "captured_claim_count": 1,
+        "corrected_claim_count": 1,
+        "verified_claim_count": 1
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "decayed_l3_proxy_stops_projecting_while_accessed_proxy_survives": true,
+        "explicit_l2_promote_apply_promotes_only_trusted_cloud_safe_proxy": true,
+        "explicit_l2_promote_dry_run_reports_candidate_without_mutation": true,
+        "explicit_l3_decay_apply_decays_only_low_access_proxy": true,
+        "explicit_l3_decay_dry_run_reports_candidate_without_mutation": true,
+        "l3_projection_records_access_after_scope_gate": true,
+        "scheduler_all_excludes_l2_promote": true,
+        "scheduler_all_excludes_l3_decay": true
+      },
+      "description": "L2/L3 evidence-backed latent proxies move only through explicit scheduler lifecycle gates: L3 projection records access after ContextEnvelope gates, scheduler-run excludes l2_promote and l3_decay from the default/all pass set, explicit l2_promote promotes only trusted cloud-safe L2 proxy memory, and explicit l3_decay soft-decays only stale low-access L3 proxy memory.",
+      "id": "l3_proxy_access_decay_gate",
+      "metrics": {
+        "accessed_proxy_access_count_after_projection": 1,
+        "accessed_proxy_lifecycle_after_decay": "long_term_memory",
+        "l2_promote_apply_promoted_count": 1,
+        "l2_promote_dry_run_eligible_count": 1,
+        "l2_proxy_lifecycle_after_apply": "long_term_memory",
+        "l3_decay_apply_decayed_count": 1,
+        "l3_decay_dry_run_inspected_count": 1,
+        "scheduler_all_includes_l2_promote": false,
+        "scheduler_all_includes_l3_decay": false,
+        "scheduler_all_pass_count": 3,
+        "stale_proxy_access_count_before_decay": 0,
+        "stale_proxy_lifecycle_after_decay": "decayed"
+      },
+      "passed": true
+    }
+  ],
+  "kind": "context_trust_loop_eval",
+  "scope": {
+    "cloud_session": "trust-loop-cloud",
+    "l2_promote_session": "trust-loop-l2-promote",
+    "l3_access_session": "trust-loop-l3-access",
+    "l3_decay_session": "trust-loop-l3-decay",
+    "latent_session": "trust-loop-latent",
+    "negative_session": "trust-loop-negative",
+    "project": "evalapp",
+    "redaction_session": "trust-loop-redaction",
+    "semantic_session": "trust-loop-semantic"
+  },
+  "summary": {
+    "case_count": 7,
+    "cloud_draft_promoted_without_verification": false,
+    "contradicted_cloud_draft_promoted": false,
+    "failed_cases": [],
+    "failed_count": 0,
+    "l2_promote_default_scheduler_pass": false,
+    "l2_proxy_promoted_after_explicit_scheduler_pass": true,
+    "l3_accessed_proxy_survived_decay": true,
+    "l3_decay_default_scheduler_pass": false,
+    "latent_paraphrase_candidate_promoted_to_l4": false,
+    "passed_count": 7,
+    "secret_like_value_leaked_to_cloud_context": false,
+    "semantic_fact_created_after_manual_review": true,
+    "semantic_fact_invalidated_after_user_correction": true,
+    "trust_boundary_passed": true
+  }
+}

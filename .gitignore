@@ -1,0 +1,15 @@
+/target/
+.soma/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
+
+# Local editor state.
+.idea/
+.vscode/
