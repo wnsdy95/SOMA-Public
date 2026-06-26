@@ -23,7 +23,7 @@ instant-distance = "0.6"
 toml = "0.8"
 dirs = "5"
 tempfile = "3"
-portable-pty = "0.8"
+portable-pty = "0.9"
 libc = "0.2"
 
 [profile.release]
