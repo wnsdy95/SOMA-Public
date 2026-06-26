@@ -32,13 +32,12 @@ tracing-subscriber = { workspace = true }
 # from main so writes flush before process exit. 0.2 is the current
 # major; depends on `tracing-subscriber` 0.3 (already in the tree).
 tracing-appender = "0.2"
-# Pin transitive `time` dep below 0.3.46. tracing-appender pulls
-# `time` for log filename timestamps; 0.3.46+ declares
-# `rust-version = "1.88"` which clashes with our 1.86 toolchain pin
-# (rust-toolchain.toml + workspace MSRV). Cargo.lock is gitignored,
-# so the constraint must live in this manifest. Bump in lockstep
-# with the toolchain bump ADR.
-time = ">=0.3.36, <0.3.46"
+# Keep `time` explicit because `tracing-appender` pulls it for rolling
+# log filename timestamps, and Dependabot reports it against this crate.
+# `time` 0.3.47+ contains the stack-exhaustion DoS fix; those patched
+# releases require Rust 1.88, so the workspace MSRV and CI toolchain move
+# in lockstep with this dependency.
+time = ">=0.3.47"
 # `clap_complete` powers `soma completions <shell>`. 4.x tracks
 # `clap` 4.x (workspace dep), so version bumps stay in lockstep.
 clap_complete = "4"
@@ -56,15 +55,15 @@ ureq = { version = "2.10", default-features = false, features = ["tls", "json"] 
 # ONNX embedding stack for semantic recall. Inference-only: candle
 # remains isolated to optional trainable context-quality modules.
 # Pinned to =5.5.0: this is the latest fastembed whose transitive ort
-# (2.0.0-rc.10) keeps `rust-version = 1.81`, compatible with our 1.86
+# (2.0.0-rc.10) keeps `rust-version = 1.81`, compatible with our 1.88
 # toolchain pin. fastembed 5.6+ pulls ort 2.0.0-rc.12
-# (rust-version = 1.88), so a toolchain bump is separate work. rustls
+# (rust-version = 1.88), compatible with the workspace toolchain. rustls
 # hf-hub + ort-download-binaries download ort native libs at build time
 # so the resulting binary is self-contained.
 fastembed = { version = "=5.5.0", default-features = false, features = ["ort-download-binaries", "hf-hub-rustls-tls"], optional = true }
 # v1.2 chunk 1 — candle for trainable mLSTM Q/K/V (ADR 0008 §D1).
 # Pinned to 0.8: 0.10+ likely needs rust 1.88; 0.8.4 builds clean
-# on the 1.86 toolchain pin. CPU-only default — Metal/CUDA/Accelerate
+# on the 1.88 toolchain pin. CPU-only default — Metal/CUDA/Accelerate
 # are user-opt-in by adding their feature flags downstream.
 candle-core = { version = "0.8", default-features = false, optional = true }
 candle-nn = { version = "0.8", default-features = false, optional = true }
@@ -78,7 +77,7 @@ uuid = { version = "1", features = ["v4"] }
 # axum + tower stack for the optional local dashboard/debug GUI. All
 # four crates sit behind `dashboard` so the default `cargo install`
 # skips ~120 transitive crates and the +60s cold-build cost. axum 0.7 /
-# tower 0.5 / tower-http 0.5 / tokio-stream 0.1 stay clear of the 1.86
+# tower 0.5 / tower-http 0.5 / tokio-stream 0.1 stay clear of the 1.88
 # toolchain pin. SSE support is built into axum::response::sse and
 # `axum::extract::ws` covers possible bidirectional graph navigation.
 axum = { version = "0.7", default-features = false, features = ["http1", "json", "tokio", "tracing"], optional = true }

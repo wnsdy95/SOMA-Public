@@ -2,7 +2,7 @@
 
 [![Code License: Apache-2.0](https://img.shields.io/badge/code%20license-Apache--2.0-blue.svg)](LICENSE)
 [![Docs License: CC BY 4.0](https://img.shields.io/badge/docs%20license-CC%20BY%204.0-lightgrey.svg)](LICENSE-docs)
-[![Rust 1.86+](https://img.shields.io/badge/Rust-1.86%2B-orange.svg)](rust-toolchain.toml)
+[![Rust 1.88+](https://img.shields.io/badge/Rust-1.88%2B-orange.svg)](rust-toolchain.toml)
 [![SQLite](https://img.shields.io/badge/SQLite-local%20WAL-003B57.svg)](README.md#storage-model)
 [![MCP](https://img.shields.io/badge/MCP-context%20server-6f42c1.svg)](README.md#mcp-resources-and-tools)
 [![Local Dashboard](https://img.shields.io/badge/dashboard-local%20Axum-2ea44f.svg)](README.md#local-dashboard)
@@ -70,15 +70,15 @@ Prerequisites:
 
 | Requirement | Notes |
 | --- | --- |
-| Rust | Minimum supported Rust version is `1.86.0`. The repo includes `rust-toolchain.toml`. |
+| Rust | Minimum supported Rust version is `1.88.0`. The repo includes `rust-toolchain.toml`. |
 | SQLite | No separate install or server is needed. SOMA uses bundled SQLite through `rusqlite`. |
 | Network | Required only for fetching Rust crates, or for optional embedding/model downloads. |
 
 Clone and build:
 
 ```bash
-git clone https://github.com/wnsdy95/SOMA.git
-cd SOMA
+git clone https://github.com/wnsdy95/SOMA-Public.git
+cd SOMA-Public
 cargo build -p soma
 target/debug/soma --help
 ```
@@ -1032,7 +1032,7 @@ to a cloud provider.
 
 ## Development
 
-Minimum Rust toolchain: `1.86.0`.
+Minimum Rust toolchain: `1.88.0`.
 
 ```bash
 cargo fmt -- --check

@@ -1,46 +1,14 @@
 # Pinned toolchain for the workspace.
-# Design: docs/discussions/0003-ci-matrix-design.md §2.
 #
-# We pin a specific x.y.z version (not "stable") so the toolchain
-# cannot drift between PR-open and merge — every toolchain bump is
-# an explicit, reviewable commit.
-#
-# 1.86.0 is the effective floor. Two independent lower bounds apply:
-#
-#   (a) edition2024 stabilization (1.85.0). Several transitive deps
-#       (e.g., `indexmap >= 2.14`) ship with `edition = "2024"` in
-#       their own Cargo.toml. A toolchain below 1.85 fails to even
-#       parse those manifests with "feature `edition2024` is
-#       required" — blocking the whole build before any of our code
-#       compiles.
-#
-#   (b) `rust-version = "1.86"` published by the `icu_*` 2.2 family
-#       (icu_normalizer, icu_properties, icu_collections,
-#       icu_provider, icu_locale_core) that `idna` — and therefore
-#       `url`, `reqwest`, `ureq` — pulls in. Cargo's resolver rejects
-#       any toolchain below that bound with "icu_<foo>@2.2.0 requires
-#       rustc 1.86", so 1.85.0 will not build the workspace today.
-#
-# Bound (a) is the qualitative justification — we deliberately let
-# the ecosystem's edition2024 floor set our floor. Bound (b) is the
-# current numeric value: whichever dep has the highest declared
-# `rust-version` among our transitive closure wins. We pin to that
-# value instead of "stable" so the toolchain cannot silently drift
-# between PR-open and merge; every bump is an explicit commit.
-#
-# Downgrade via `cargo update --precise` was considered and rejected:
-# it papers over the real ecosystem direction (toward 1.86+), breaks
-# again the next time a dep bumps its MSRV, and leaves us pinned to
-# yanked-adjacent versions. Moving the toolchain up tracks reality.
-#
-# MSRV declared in workspace Cargo.toml (`rust-version = "1.86"`)
-# mirrors this floor by construction. Before edition2024's ecosystem
-# adoption, the MSRV could sit below the build channel to give
-# downstream headroom; that headroom no longer exists — any consumer
-# of our workspace deps also needs 1.86+, so declaring a lower MSRV
-# would misrepresent reality.
+# We pin a specific x.y.z version instead of `stable` so CI, local
+# development, and dependency security fixes move together in explicit,
+# reviewable commits. The current floor is 1.88.0 because patched `time`
+# releases used by the logging stack declare `rust-version = "1.88"`;
+# keeping the older toolchain pin leaves the workspace on vulnerable `time`
+# versions. The workspace `Cargo.toml` mirrors this floor with
+# `rust-version = "1.88"`.
 
 [toolchain]
-channel    = "1.86.0"
+channel    = "1.88.0"
 components = ["rustfmt", "clippy"]
 profile    = "minimal"
