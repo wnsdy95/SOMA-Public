@@ -1,0 +1,23 @@
+name: Research note
+description: Capture a research observation, paper note, or design hypothesis.
+title: "[Research]: "
+labels: ["research", "needs-triage"]
+body:
+  - type: textarea
+    id: claim
+    attributes:
+      label: Claim or hypothesis
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Cite papers, experiments, traces, or code references.
+    validations:
+      required: true
+  - type: textarea
+    id: implication
+    attributes:
+      label: Implication for SOMA
+      description: What should change in architecture, docs, evaluation, or code?

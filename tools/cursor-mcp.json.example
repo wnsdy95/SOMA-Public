@@ -1,0 +1,9 @@
+{
+  "_comment": "Cursor MCP registration for SOMA. Replace ${HOME} with your absolute home directory (Cursor does not expand shell variables in this field). On macOS this is typically /Users/<you>; obtain via `printf '%s\\n' \"$HOME\"` and substitute below. The `command` value MUST be an absolute path.",
+  "mcpServers": {
+    "soma": {
+      "command": "${HOME}/.cargo/bin/soma",
+      "args": ["mcp-serve"]
+    }
+  }
+}

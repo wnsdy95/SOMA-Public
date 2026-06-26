@@ -1,0 +1,146 @@
+{
+  "cases": [
+    {
+      "checks": {
+        "exact_candidate_is_trusted_l3_support": true,
+        "exact_dry_run_does_not_insert_proposal": true,
+        "exact_group_rule_is_exact_normalized_text": true,
+        "exact_readiness_score_is_evidence_not_truth": true,
+        "exact_repetition_yields_one_candidate": true
+      },
+      "description": "Exact repeated verified L3 claims should yield exactly one dry-run semantic_fact promotion candidate, using exact_normalized_text grouping, exposing an evidence-readiness score, and without inserting a proposal during dry-run.",
+      "id": "exact_repetition_promotes_l4_candidate",
+      "metrics": {
+        "group_rule": "exact_normalized_text",
+        "proposed_count": 1,
+        "readiness_score": 90,
+        "readiness_verdict": "manual_l4_review_required",
+        "support_count": 2
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "token_candidate_is_not_latent_review": true,
+        "token_candidate_keeps_single_representative_claim": true,
+        "token_group_rule_is_conservative_signature": true,
+        "token_near_duplicate_yields_one_candidate": true,
+        "token_readiness_score_allows_l4_review": true
+      },
+      "description": "Near-duplicate verified L3 claims with the same conservative token signature should yield one semantic_fact promotion candidate with an L4-review readiness card, not a latent review-only request.",
+      "id": "conservative_token_signature_promotes_l4_candidate",
+      "metrics": {
+        "group_rule": "conservative_token_signature",
+        "proposal_claim_count": 1,
+        "proposed_count": 1,
+        "readiness_score": 90,
+        "readiness_verdict": "manual_l4_review_required",
+        "support_count": 2
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "latent_candidate_does_not_create_l4_proposal": true,
+        "latent_candidate_has_no_lifecycle_target": true,
+        "latent_candidate_keeps_all_support_for_reviewer": true,
+        "latent_candidate_routes_to_review_only": true,
+        "latent_readiness_score_blocks_l4_target": true
+      },
+      "description": "Broader paraphrase-like verified L3 claims should route to a review-only token_overlap candidate, expose a readiness score that blocks direct L4 targeting, and must not create an L4 semantic_fact proposal.",
+      "id": "latent_paraphrase_routes_to_review_only",
+      "metrics": {
+        "group_rule": "token_overlap_review_candidate",
+        "proposed_count": 0,
+        "readiness_score": 70,
+        "readiness_verdict": "review_only_requires_resolution",
+        "review_candidate_count": 1,
+        "review_proposed_count": 1
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "negation_conflict_decision_packet_blocks_l4_apply": true,
+        "negation_conflict_does_not_create_l4_proposal": true,
+        "negation_conflict_has_no_lifecycle_target": true,
+        "negation_conflict_keeps_all_support_for_reviewer": true,
+        "negation_conflict_non_dry_run_creates_review_proposal": true,
+        "negation_conflict_readiness_score_requires_resolution": true,
+        "negation_conflict_resolution_actions_require_evidence": true,
+        "negation_conflict_resolution_closes_review_queue": true,
+        "negation_conflict_resolution_does_not_create_verification_or_l4": true,
+        "negation_conflict_resolution_records_proposal_audit_evidence": true,
+        "negation_conflict_resolution_reject_without_evidence_fails": true,
+        "negation_conflict_review_queue_structures_semantic_review": true,
+        "negation_conflict_review_rubric_requires_resolution": true,
+        "negation_conflict_routes_to_review_only": true,
+        "negation_conflict_uses_conflict_review_source": true
+      },
+      "description": "Verified L3 claims with the same negation-stripped token signature but opposing negation polarity should route to a review-only conflict candidate, must not create an L4 semantic_fact proposal, expose structured review guidance and conflict-resolution controls, require reviewer evidence before accept/reject resolution, and record that resolution only as proposal audit metadata.",
+      "id": "negation_conflict_routes_to_review_only",
+      "metrics": {
+        "decision_status": "semantic_review_only_verification_required",
+        "group_rule": "negation_stripped_token_signature",
+        "proposed_count": 0,
+        "readiness_score": 60,
+        "readiness_verdict": "review_only_requires_resolution",
+        "resolution_action": "reject",
+        "resolution_event_count": 0,
+        "resolution_kind": "reject_review_only_candidate",
+        "review_candidate_count": 1,
+        "review_proposed_count": 1,
+        "review_queue_after_resolution_count": 0,
+        "review_queue_readiness": "semantic_review_only_candidate_requires_resolution",
+        "semantic_review_target": "none",
+        "support_count": 2
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "decision_packet_requires_manual_l4_review": true,
+        "limited_diversity_bias_risk_is_visible": true,
+        "limited_diversity_creates_reviewable_semantic_proposal": true,
+        "review_drain_skips_limited_diversity_semantic_fact": true,
+        "semantic_proposal_keeps_representative_claim_separate": true,
+        "semantic_proposal_preserves_full_support_set": true,
+        "semantic_readiness_score_exposes_manual_review": true,
+        "semantic_review_rubric_exposes_l4_checks": true
+      },
+      "description": "A semantic_fact proposal with limited support diversity should expose bias risk and whether all support comes from one evidence-source family, expose an evidence-readiness score, a manual review decision packet, and an L4 review rubric, preserve the full support set separately from the representative claim, while automatic review drain skips it instead of writing L4 memory.",
+      "id": "limited_diversity_blocks_auto_l4_drain",
+      "metrics": {
+        "bias_risk": "medium_limited_diversity",
+        "decision_status": "manual_l4_semantic_review",
+        "readiness_score": 90,
+        "readiness_verdict": "manual_l4_review_required",
+        "representative_claim_count": 1,
+        "review_drain_auto_applied_count": 0,
+        "semantic_proposal_id": 12,
+        "single_evidence_source_only": false,
+        "support_claim_count": 2
+      },
+      "passed": true
+    }
+  ],
+  "corpus": {
+    "case_count": 5,
+    "path": "docs/evals/semantic-learning-quality-corpus.jsonl"
+  },
+  "kind": "semantic_learning_quality_eval",
+  "project": "semantic-quality-eval",
+  "sessions": {
+    "diversity": "semantic-quality-diversity",
+    "exact": "semantic-quality-exact",
+    "latent": "semantic-quality-latent",
+    "negation_conflict": "semantic-quality-negation-conflict",
+    "token": "semantic-quality-token"
+  },
+  "summary": {
+    "case_count": 5,
+    "failed_count": 0,
+    "passed_count": 5,
+    "semantic_learning_quality_passed": true
+  }
+}

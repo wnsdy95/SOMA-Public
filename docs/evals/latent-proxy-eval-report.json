@@ -1,0 +1,119 @@
+{
+  "cases": [
+    {
+      "checks": {
+        "case_count_positive": true,
+        "cloud_draft_prediction_count_is_zero": true,
+        "cloud_draft_proxy_not_predicted": true,
+        "deterministic_baseline_parity_passed": true,
+        "jsonl_expected_proxy_hit": true,
+        "kind_is_latent_proxy_eval": true,
+        "optional_inference_fields_admissible": true,
+        "policy_forbids_claim_or_verification_sources": true,
+        "prediction_hit_rate_matches_or_beats_baseline": true,
+        "read_only_trust_boundary": true
+      },
+      "description": "JSONL latent eval cases recover durable evidence-backed proxies and exclude cloud_draft proxies.",
+      "id": "jsonl_cases_score_against_baseline",
+      "metrics": {
+        "case_count": 1,
+        "cloud_draft_prediction_count": 0,
+        "deterministic_baseline_hit_count": 1,
+        "prediction_hit_count": 1
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "case_count_positive": true,
+        "case_source_matches": true,
+        "cloud_draft_prediction_count_is_zero": true,
+        "deterministic_baseline_parity_passed": true,
+        "kind_is_latent_proxy_eval": true,
+        "optional_inference_fields_admissible": true,
+        "policy_forbids_claim_or_verification_sources": true,
+        "prediction_hit_rate_matches_or_beats_baseline": true,
+        "read_only_trust_boundary": true,
+        "storage_expected_proxy_hit": true
+      },
+      "description": "Storage-derived latent eval cases recover active prediction-eligible durable proxies.",
+      "id": "storage_cases_score_against_baseline",
+      "metrics": {
+        "case_count": 1,
+        "cloud_draft_prediction_count": 0,
+        "deterministic_baseline_hit_count": 1,
+        "prediction_hit_count": 1
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "case_count_positive": true,
+        "case_source_matches": true,
+        "cloud_draft_prediction_count_is_zero": true,
+        "deterministic_baseline_parity_passed": true,
+        "kind_is_latent_proxy_eval": true,
+        "optional_inference_fields_admissible": true,
+        "policy_forbids_claim_or_verification_sources": true,
+        "prediction_hit_rate_matches_or_beats_baseline": true,
+        "read_only_trust_boundary": true,
+        "task_frame_outcome_expected_proxy_hit": true
+      },
+      "description": "TaskFrame outcomes can seed latent eval cases without creating trust or promotion evidence.",
+      "id": "task_frame_outcomes_feed_latent_eval",
+      "metrics": {
+        "case_count": 1,
+        "cloud_draft_prediction_count": 0,
+        "deterministic_baseline_hit_count": 1,
+        "prediction_hit_count": 1
+      },
+      "passed": true
+    },
+    {
+      "checks": {
+        "jsonl_optional_fields_admissible": true,
+        "outcome_optional_fields_admissible": true,
+        "policy_forbids_memory_mutation_fields": true,
+        "policy_schema_v1": true,
+        "storage_optional_fields_admissible": true
+      },
+      "description": "Optional latent predictor outputs remain selector/eval helpers and cannot become verification, claim, lifecycle, or projection sources.",
+      "id": "optional_inference_policy_stays_read_only",
+      "metrics": {
+        "fallback_count": 0,
+        "total_cloud_draft_prediction_count": 0
+      },
+      "passed": true
+    }
+  ],
+  "corpus": [
+    {
+      "description": "The latent proxy predictor eval must remain a read-only optional inference gate: JSONL, storage-derived, and TaskFrame outcome cases recover evidence-backed durable proxies, deterministic-baseline parity passes, cloud_draft proxies are never accepted as predictions, and optional inference fields stay selector/eval-only rather than verification, claim, lifecycle, or ContextEnvelope projection sources.",
+      "expected_checks": [
+        "jsonl_cases_score_against_baseline",
+        "storage_cases_score_against_baseline",
+        "task_frame_outcomes_feed_latent_eval",
+        "optional_inference_policy_stays_read_only"
+      ],
+      "id": "latent_proxy_eval_release_gate"
+    }
+  ],
+  "kind": "latent_proxy_eval_hardening",
+  "source": "tools/latent-proxy-eval.sh",
+  "summary": {
+    "case_count": 4,
+    "case_sources": [
+      "jsonl",
+      "storage_active_prediction_eligible_proxy",
+      "task_frame_outcome"
+    ],
+    "deterministic_baseline_parity_passed": true,
+    "failed_count": 0,
+    "latent_proxy_eval_passed": true,
+    "optional_inference_fields_admissible": true,
+    "passed_count": 4,
+    "source_case_count": 3,
+    "total_cloud_draft_prediction_count": 0
+  },
+  "trust_boundary": "checked-in latent proxy eval report is release evidence only: it runs read-only predictor eval surfaces against an isolated DB, records no proof row, creates no verification event, promotes no memory, and does not mutate ContextEnvelope output"
+}

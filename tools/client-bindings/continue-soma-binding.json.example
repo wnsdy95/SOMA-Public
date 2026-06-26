@@ -1,0 +1,53 @@
+{
+  "schema": "soma.client_binding.v1",
+  "client": "continue",
+  "status": "reference_binding",
+  "trust_boundary": "This manifest does not prove Continue installed or called the hook; it fixes the wrapper contract a Continue integration must call.",
+  "lifecycle": {
+    "event_source": "continue_private_lifecycle_hook",
+    "wrapper": "tools/soma-adapter-lifecycle.sh",
+    "environment": {
+      "SOMA_ADAPTER_LIFECYCLE_CLIENT": "continue",
+      "SOMA_ADAPTER_LIFECYCLE_EVENT": "assistant_response",
+      "SOMA_ADAPTER_LIFECYCLE_EVENT_SOURCE": "continue_private_lifecycle_hook",
+      "SOMA_ADAPTER_LIFECYCLE_BINDING_NONCE": "continue_reference_binding_nonce",
+      "SOMA_ADAPTER_LIFECYCLE_JSONL": "$HOME/.soma/adapter/events.jsonl",
+      "SOMA_ADAPTER_LIFECYCLE_PROJECT": "$SOMA_PROJECT",
+      "SOMA_ADAPTER_LIFECYCLE_SESSION": "$SOMA_SESSION_ID",
+      "SOMA_ADAPTER_LIFECYCLE_CWD": "$PWD"
+    },
+    "sample_event": {
+      "event": "assistant_response",
+      "thread_id": "continue-binding-session",
+      "prompt_text": "Review the Continue binding contract.",
+      "output_text": "1. Continue binding cloud output remains draft evidence until trusted verification.",
+      "project": "soma-client-binding",
+      "session_id": "continue-binding-session",
+      "cwd": "/tmp/soma-client-binding",
+      "client": "continue",
+      "enqueue_proposal": true,
+      "proposal_reason": "Continue binding smoke creates a review-only verification request."
+    }
+  },
+  "spool_drain": {
+    "wrapper": "tools/soma-adapter-spool-watch.sh",
+    "native_command": "soma adapter-spool --jsonl $SOMA_ADAPTER_SPOOL_JSONL",
+    "checkpoint": "$HOME/.soma/adapter/events.offset"
+  },
+  "review_ui": {
+    "wrapper": "tools/soma-review-render.sh",
+    "environment": {
+      "SOMA_REVIEW_CLIENT": "continue",
+      "SOMA_REVIEW_PROJECT": "soma-client-binding",
+      "SOMA_REVIEW_SESSION_ID": "continue-binding-session",
+      "SOMA_REVIEW_FORMAT": "json"
+    },
+    "read_only_contract": "review_render_is_read_only_and_never_records_verification_or_applies_proposals_or_ack",
+    "mutation_boundary": "Call soma_review_digest_ack only after visible notification; call soma_review_action or soma_review_batch only after trusted user/tool/test/local/correction evidence."
+  },
+  "proof_commands": [
+    "tools/client-binding-smoke.sh",
+    "tools/mcp-adapter-config-smoke.sh",
+    "tools/client-integration-eval.sh --check-docs-report"
+  ]
+}

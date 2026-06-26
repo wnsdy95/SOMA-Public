@@ -1,0 +1,133 @@
+[package]
+name = "soma"
+version = "1.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "SOMA — local context layer for cloud LLMs. Captures local work history, compiles cited ContextEnvelopes, and serves them through MCP."
+# R5 audit (2026-04-29) — crates.io publish metadata.
+categories = ["command-line-utilities", "database", "memory-management"]
+keywords = ["llm", "memory", "mcp", "claude", "context"]
+readme = "../../README.md"
+
+[[bin]]
+name = "soma"
+path = "src/main.rs"
+
+[lib]
+name = "soma"
+path = "src/lib.rs"
+
+[dependencies]
+tokio = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+# D128 close — rolling daily file appender for the resident's log
+# stream. Pre-fix `init_tracing` wrote to stderr only and the
+# LaunchAgent's `StandardErrorPath` grew unbounded on long runs.
+# `non_blocking` returns a `WorkerGuard` that `init_tracing` returns
+# from main so writes flush before process exit. 0.2 is the current
+# major; depends on `tracing-subscriber` 0.3 (already in the tree).
+tracing-appender = "0.2"
+# Pin transitive `time` dep below 0.3.46. tracing-appender pulls
+# `time` for log filename timestamps; 0.3.46+ declares
+# `rust-version = "1.88"` which clashes with our 1.86 toolchain pin
+# (rust-toolchain.toml + workspace MSRV). Cargo.lock is gitignored,
+# so the constraint must live in this manifest. Bump in lockstep
+# with the toolchain bump ADR.
+time = ">=0.3.36, <0.3.46"
+# `clap_complete` powers `soma completions <shell>`. 4.x tracks
+# `clap` 4.x (workspace dep), so version bumps stay in lockstep.
+clap_complete = "4"
+rusqlite = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+base64 = { workspace = true }
+clap = { workspace = true }
+instant-distance = { workspace = true }
+toml = { workspace = true }
+dirs = { workspace = true }
+libc = { workspace = true }
+portable-pty = { workspace = true, optional = true }
+ureq = { version = "2.10", default-features = false, features = ["tls", "json"] }
+# ONNX embedding stack for semantic recall. Inference-only: candle
+# remains isolated to optional trainable context-quality modules.
+# Pinned to =5.5.0: this is the latest fastembed whose transitive ort
+# (2.0.0-rc.10) keeps `rust-version = 1.81`, compatible with our 1.86
+# toolchain pin. fastembed 5.6+ pulls ort 2.0.0-rc.12
+# (rust-version = 1.88), so a toolchain bump is separate work. rustls
+# hf-hub + ort-download-binaries download ort native libs at build time
+# so the resulting binary is self-contained.
+fastembed = { version = "=5.5.0", default-features = false, features = ["ort-download-binaries", "hf-hub-rustls-tls"], optional = true }
+# v1.2 chunk 1 — candle for trainable mLSTM Q/K/V (ADR 0008 §D1).
+# Pinned to 0.8: 0.10+ likely needs rust 1.88; 0.8.4 builds clean
+# on the 1.86 toolchain pin. CPU-only default — Metal/CUDA/Accelerate
+# are user-opt-in by adding their feature flags downstream.
+candle-core = { version = "0.8", default-features = false, optional = true }
+candle-nn = { version = "0.8", default-features = false, optional = true }
+# D130 — MCP request_id span propagation. UUID v4 generated per
+# JSON-RPC dispatch so an operator reading `RUST_LOG=info` traces can
+# correlate "MemoryPack build took 2.5s" to a specific Claude session
+# call. v4 (random) over v7 (timestamp-prefixed) because span fields
+# are short-lived per-request — sortability adds no value here, and
+# v4 needs no `getrandom` time-source feature.
+uuid = { version = "1", features = ["v4"] }
+# axum + tower stack for the optional local dashboard/debug GUI. All
+# four crates sit behind `dashboard` so the default `cargo install`
+# skips ~120 transitive crates and the +60s cold-build cost. axum 0.7 /
+# tower 0.5 / tower-http 0.5 / tokio-stream 0.1 stay clear of the 1.86
+# toolchain pin. SSE support is built into axum::response::sse and
+# `axum::extract::ws` covers possible bidirectional graph navigation.
+axum = { version = "0.7", default-features = false, features = ["http1", "json", "tokio", "tracing"], optional = true }
+tower = { version = "0.5", optional = true }
+tower-http = { version = "0.5", default-features = false, features = ["trace"], optional = true }
+tokio-stream = { version = "0.1", default-features = false, optional = true }
+
+[features]
+default = []
+# Advanced terminal capture via portable-pty. Optional because the pty
+# driver is platform-finicky and shell-init covers the common case.
+pty-capture = ["dep:portable-pty"]
+# Legacy Anthropic narrative-summary diagnostic. It is not the cloud/local
+# bridge and it never emits ContextEnvelope `compiler_notes`; the current
+# local LLM path is the opt-in private compiler helper in `memory::local_llm`.
+# `ureq` is unconditional in [dependencies] above, so this feature only gates
+# the Anthropic-specific `memory::llm` module + slow_loop's LLM-tuned
+# narrative row.
+llm-summary = []
+# Real ONNX embedding via fastembed. Downloads ort runtime binaries at
+# build time and HuggingFace models on first run.
+embed-onnx = ["dep:fastembed"]
+# Optional context quality modules (feature name kept for churn control):
+# Hopfield retrieval, mLSTM working memory, iPC anomaly signal, and
+# ANIL scope classification. These are retained only when they improve
+# ContextEnvelope ranking, scoping, compression, conflict detection, or
+# evidence selection. Frozen-weight inference only here — no candle /
+# burn / tch. Trainable variants sit behind `cognitive-train`.
+cognitive = []
+# Trainable variants for optional context quality modules. Implies
+# `cognitive` (frozen path stays in tree as fallback). Adds candle-core
+# + candle-nn to the build (CPU only by default).
+cognitive-train = ["cognitive", "dep:candle-core", "dep:candle-nn"]
+# Optional SOMA dashboard/debug GUI. Off by default so normal installs
+# skip the axum + tower transitive cost (~120 crate cold-build +60s).
+# Opt-in:
+#   cargo install --features "embed-onnx,cognitive-train,dashboard"
+dashboard = ["dep:axum", "dep:tower", "dep:tower-http", "dep:tokio-stream"]
+
+[dev-dependencies]
+tempfile = { workspace = true }
+# `tokio::test(start_paused = true)` requires the `test-util`
+# feature; `full` doesn't include it. Used by warm_loop tests
+# (discussion 0033 §G — deterministic time advance, no wall-clock
+# sleep so CI never flakes on interval ticks).
+tokio = { workspace = true, features = ["full", "test-util"] }
+
+# D117 (R6 audit, 2026-04-30) — inherit the workspace-wide lint policy
+# (clippy::pedantic deny + unsafe_code deny + selected allow list).
+# Defined in workspace `Cargo.toml [workspace.lints]`.
+[lints]
+workspace = true
