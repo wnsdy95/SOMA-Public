@@ -81,7 +81,7 @@ uuid = { version = "1", features = ["v4"] }
 # tower 0.5 / tower-http 0.5 / tokio-stream 0.1 stay clear of the 1.86
 # toolchain pin. SSE support is built into axum::response::sse and
 # `axum::extract::ws` covers possible bidirectional graph navigation.
-axum = { version = "0.7", default-features = false, features = ["http1", "json", "tokio", "tracing"], optional = true }
+axum = { version = "0.8", default-features = false, features = ["http1", "json", "tokio", "tracing"], optional = true }
 tower = { version = "0.5", optional = true }
 tower-http = { version = "0.5", default-features = false, features = ["trace"], optional = true }
 tokio-stream = { version = "0.1", default-features = false, optional = true }
