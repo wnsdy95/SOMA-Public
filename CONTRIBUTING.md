@@ -34,6 +34,37 @@ Before opening a PR:
 PRs that affect trust, learning, ContextEnvelope, TaskFrame, or client proof
 must explain the evidence rule they preserve or change.
 
+## Commit Messages
+
+SOMA uses a Conventional Commit style with a small project-specific type set:
+
+```text
+<type>(<optional-scope>): <short imperative summary>
+```
+
+Use `feat`, not `feature`, so release tooling and outside contributors see the
+standard open-source convention immediately.
+
+Common examples:
+
+```text
+feat(memory): promote verified L2 candidates
+fix(context): block unverified cloud claims
+docs(readme): document dashboard startup
+security(trust): require tool verification before L3 promotion
+```
+
+Allowed types are `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `ci`,
+`build`, `chore`, `security`, `release`, and `revert`.
+
+Keep the subject imperative, concise, and without a final period. Add a body
+when the change is non-trivial. For memory, trust, ContextEnvelope, TaskFrame,
+or client-proof changes, the body should explain the evidence rule and the
+validation path.
+
+See [Commit message guide](docs/COMMIT_MESSAGE_GUIDE.md). To install the local
+template, run `git config commit.template .gitmessage`.
+
 ## Coding Standards
 
 - Rust code is formatted with `rustfmt`.

@@ -63,6 +63,7 @@ Repository policy:
 
 - [Contributing](CONTRIBUTING.md)
 - [Security policy](SECURITY.md)
+- [Commit message guide](docs/COMMIT_MESSAGE_GUIDE.md)
 - [Support](SUPPORT.md)
 - [Code of conduct](CODE_OF_CONDUCT.md)
 - [Pull request policy](docs/PULL_REQUEST_POLICY.md)

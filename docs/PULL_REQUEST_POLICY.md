@@ -60,13 +60,18 @@ Recommended branch rule for `main`:
 
 ## Commit Style
 
-Prefer concise imperative commits:
+PR commits and squash-merge titles should follow the
+[Commit message guide](COMMIT_MESSAGE_GUIDE.md):
 
 ```text
-Add trust audit status check
-Document dashboard setup
-Fix L2 promotion preview wording
+feat(memory): promote verified L2 candidates
+fix(context): block unverified cloud claims
+docs(readme): document dashboard startup
 ```
+
+Use `feat`, not `feature`. Keep subjects imperative and concise, and include a
+body for non-trivial trust, memory, ContextEnvelope, TaskFrame, or client-proof
+changes.
 
 Keep generated files, private logs, local DBs, and unrelated formatting churn out
 of commits.
