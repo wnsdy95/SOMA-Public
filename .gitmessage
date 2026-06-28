@@ -1,0 +1,35 @@
+# <type>(<scope>): <short imperative summary>
+#
+# Examples:
+# feat(memory): promote verified L2 candidates
+# fix(context): block unverified cloud claims
+# docs(readme): document dashboard startup
+# security(trust): require tool verification before L3 promotion
+#
+# Types:
+# feat      new user-visible capability
+# fix       bug fix
+# docs      documentation only
+# test      tests only
+# refactor  behavior-preserving code change
+# perf      performance improvement
+# ci        GitHub Actions or release automation
+# build     dependencies, packaging, or build system
+# chore     maintenance that does not affect runtime behavior
+# security  trust, privacy, or security hardening
+# release   release or version metadata
+# revert    revert a prior change
+#
+# Rules:
+# - Use `feat`, not `feature`.
+# - Keep the subject in imperative mood: "add", "fix", "document".
+# - Keep the subject at or below 72 characters when practical.
+# - Do not end the subject with a period.
+# - Add a body when the change is non-trivial.
+# - For memory, trust, ContextEnvelope, TaskFrame, or client-proof changes,
+#   explain the evidence rule and validation path in the body.
+#
+# Breaking changes:
+# <type>!: <short imperative summary>
+#
+# BREAKING CHANGE: describe the user-facing or integration-facing break.
