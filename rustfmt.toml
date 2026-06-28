@@ -1,5 +1,6 @@
 # Rustfmt config, workspace-wide.
-# Design: docs/discussions/0003-ci-matrix-design.md §5.
+# Public release note: formatting policy is documented inline because private
+# design discussions are excluded.
 #
 # Everything below is a stable-rustfmt option. Nightly-only options
 # (imports_granularity, group_imports, etc.) are deliberately NOT
