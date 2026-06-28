@@ -1,5 +1,6 @@
 # Clippy thresholds, workspace-wide.
-# Design: docs/discussions/0003-ci-matrix-design.md §6.
+# Public release note: thresholds are documented inline because private
+# design discussions are excluded.
 #
 # These are per-lint *tuning*, not allow-lists. We keep the default
 # warn set ("all + pedantic-minus-noisy") and only loosen specific
