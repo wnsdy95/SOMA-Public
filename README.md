@@ -42,6 +42,100 @@ SOMA      = local memory, task state, evidence, policy, correction, trust gates
 SOMA does not try to replace the cloud model. It gives the cloud model the
 right cognitive state.
 
+The long-term destination is a cloud-local latent protocol: when cloud model
+providers expose safe interfaces for it, a cloud LLM and a local memory-learning
+system should be able to exchange bounded raw hidden vectors or latent states
+under explicit user control. SOMA would use those model-native signals to learn
+compact private memory locally, then return evidence-grounded memory and control
+signals back to the cloud model. The goal is an efficient partnership: cloud
+LLMs provide broad reasoning and generation, while local SOMA provides private
+memory learning, continuity, verification, and lifecycle control.
+
+Today's public runtime approximates that direction with evidence-backed latent
+proxies and ContextEnvelopes, because mainstream cloud APIs do not yet expose a
+portable raw-hidden-state exchange protocol.
+
+## Inspired By
+
+This section summarizes the research papers referenced by the private SOMA
+research notes under `docs/research/`, plus the latent-learning paper linked
+during public README preparation. SOMA does not implement every method below as
+a core backend; most of them shaped the architecture, trust boundary, or future
+optional context-quality modules.
+
+### Associative and Episodic Memory
+
+- **Hopfield Networks is All You Need** (Ramsauer et al., 2020): Inspired SOMA's view of retrieval as associative recall over encoded episodes, with Hopfield-style modules kept optional rather than treated as the trust source.
+- **Provably Optimal Memory Capacity for Modern Hopfield Models** (Hu et al., 2024): Informed the expectation that large episodic stores need capacity-aware recall and bounded retrieval cost.
+- **On Computational Limits of Modern Hopfield Models** (Hu et al., 2024): Reinforced SOMA's separation between memory retrieval and higher-level reasoning or verification.
+- **The Capacity of Modern Hopfield Networks** (Lucibello and Mezard, 2024): Strengthened the theoretical motivation for associative memory as a scalable recall primitive.
+- **Modern Hopfield Networks with Continuous-Time Memories** (Santos et al., 2025): Inspired future compressed temporal-memory backends for long-running work streams.
+- **Sparse Hopfield Networks with Tsallis-style sparsity** (2024): Inspired sparse, top-k recall so unrelated memories do not pollute a ContextEnvelope.
+- **Sparse Quantized Hopfield Networks for Online-Continual Memory** (Alonso and Krichmar, 2024): Motivated online memory updates while keeping interference and storage cost bounded.
+- **Modern Hopfield Networks as hippocampus with VAE/neocortex-style CLS** (2025): Inspired the episodic-versus-semantic split behind SOMA's memory lifecycle.
+- **Hopfield Encoding Networks** (Kashyap et al., 2024): Inspired storing pre-encoded task and evidence embeddings rather than raw conversational text.
+- **Input-driven dynamics for robust memory retrieval in Hopfield networks** (Betteti et al., 2025): Inspired current-task-conditioned recall instead of static global memory lookup.
+
+### Working Memory and Long Context
+
+- **xLSTM: Extended Long Short-Term Memory** (Beck et al., 2024): Inspired SOMA's L1 working-memory idea as a bounded state that compresses the active session.
+- **xLSTM 7B** (Beck et al., 2025): Informed future expectations for scaling matrix-memory backends beyond toy cognitive modules.
+- **Tiled Flash Linear Attention for xLSTM/mLSTM kernels** (2025): Inspired the practical constraint that optional learned memory backends must have realistic latency.
+- **RWKV-7 Goose** (Peng et al., 2025): Inspired constant-memory recurrent state as another candidate backend for local continuity.
+- **Mamba-3** (Gu, Dao et al., 2026): Informed the broader state-space-model design space for bounded state tracking.
+- **MemMamba** (2025): Inspired the idea that recurrent sequence models can be augmented with explicit memory paths.
+- **Jamba** (AI21, 2024/2025): Inspired hybrid attention-plus-SSM designs for long-context work where pure recurrence is not enough.
+- **Hymba** (NVIDIA, 2024): Inspired hybrid memory/attention routing with explicit meta-token-style state.
+- **NVIDIA Mamba-2-Hybrid empirical study** (2024): Informed SOMA's preference for deterministic baselines plus optional learned modules rather than one model family as the whole architecture.
+
+### Predictive Coding, Latents, and Salience
+
+- **Learn from your own latents and not from tokens: A sample-complexity theory** (Korchinski, Favero, and Wyart, 2026): Inspired SOMA's latent-learning direction: learn from model-native representations rather than token text; today's runtime uses evidence-backed latent proxies until a safe raw-hidden-vector exchange protocol exists.
+- **Incremental Predictive Coding** (Salvatori et al., 2024): Inspired surprise and anomaly detection as L2 candidate signals, while SOMA still requires evidence before promotion.
+- **Deep Bidirectional Predictive Coding** (2025): Inspired future bidirectional error signals for review-only semantic candidates.
+- **PCX predictive-coding benchmarking** (2024): Informed the decision to keep predictive-coding work on compact evidence embeddings rather than raw high-dimensional inputs.
+- **Introduction to Predictive Coding Networks for ML** (Stenlund, 2025): Inspired implementation guardrails for any future PCN-based optional module.
+- **Active Predictive Coding** (Rao et al., 2024): Inspired the idea of local prediction error as a control signal for what needs attention.
+- **FEP-based neuromimetic perception** (Bazargani, Friston et al., 2025): Inspired uncertainty-aware local diagnostics without allowing hidden latents to become durable facts.
+- **The Free-Energy Principle** (Friston, 2010): Inspired the salience framing, but SOMA turns salience into review candidates rather than truth.
+- **Self-modeling as regularization** (Premakumar, Graziano et al., 2024): Inspired SOMA's self-review direction: learn from observed behavior, not from unverified cloud prose.
+
+### Continual Learning and Adaptation
+
+- **O-LoRA** (2023): Inspired orthogonal adaptation spaces as a future way to avoid overwriting prior behavior.
+- **InfLoRA** (2024): Inspired feature-subspace separation for continual learning without replay-heavy pipelines.
+- **S-LoRA for Class-Incremental Learning** (2025): Inspired magnitude/direction separation as a possible adaptation guardrail.
+- **Online-LoRA** (2025): Inspired task-free online adaptation as a future local-learning direction.
+- **PEARL** (2025): Inspired dynamic rank allocation for adapting only where new evidence justifies extra capacity.
+- **OLieRA** (2025): Inspired geometry-aware LoRA constraints for stable specialization.
+- **OPLoRA** (2025): Inspired orthogonal projection as another route for reducing interference between learned skills.
+- **CLoRA** (2025): Inspired lightweight continual-learning adapters for long-lived personalized systems.
+- **TreeLoRA** (2025): Inspired hierarchical adapter organization that could map naturally to persona and project provenance.
+- **CL-LoRA** (2025): Inspired class/task-incremental adapter management for future semantic-learning experiments.
+- **DoRA** (2024): Inspired separating magnitude and direction when adapting model behavior.
+- **LoRA+** (2024): Inspired practical optimizer choices for any future adapter training path.
+- **rsLoRA** (2023): Inspired stable scaling rules for higher-rank adapter experiments.
+- **LoRA Learns Less and Forgets Less** (Biderman et al., 2024): Motivated skepticism toward naive LoRA as a complete memory or learning system.
+- **LoRA Without Regret** (Schulman, 2025): Inspired the view that small-rank adaptation can be useful when carefully tuned, but still belongs outside SOMA's core trust boundary.
+
+### Memory Architecture and Consolidation
+
+- **Titans** (Behrouz et al., 2025): Inspired the four-stage memory lifecycle: short-term candidates, durable episodic memory, forgetting, and semantic consolidation.
+- **Hope / Nested Learning** (Google Research, 2026): Inspired future work on nested local control loops, while current SOMA keeps learning explicit and evidence-gated.
+- **HippoRAG** (2024): Inspired graph-indexed, multi-hop recall across projects, policies, corrections, and durable episodes.
+- **Latent ODEs** (Rubanova et al., 2019): Inspired smooth latent-state tracking between discrete user/tool events.
+- **DreamerV3** (2023): Inspired world-model-style latent state as a possible evaluation surface, not as cloud-facing hidden-state transfer.
+- **Sleep Replay Consolidation** (2022): Inspired review and consolidation cycles that happen after evidence is captured.
+- **NeuroDream** (Tutuncuoglu, 2024): Inspired sleep-like rehearsal from latent or embedding evidence while keeping outputs review-only.
+- **MemoryBank** (2024): Inspired decay, forgetting, and access-weighted memory policies.
+
+### Meta-Learning and Control Signals
+
+- **ANIL** (Raghu et al., 2020): Inspired treating fast adaptation as feature reuse and control-plane routing, not as a memory layer by itself.
+- **learn2learn** (Arnold et al., 2020): Provided the practical meta-learning reference point behind optional future experiments.
+- **HyperMAML** (2024): Inspired one-shot hypernetwork adaptation as a possible alternative to gradient-heavy inner loops.
+- **In-Context In-Context Learning Neural Processes** (2024): Inspired set-conditioned adaptation as a future route for project/persona-sensitive behavior.
+
 ## Current Status
 
 This repository is the public runtime source set:
