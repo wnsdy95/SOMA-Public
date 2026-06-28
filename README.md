@@ -541,29 +541,27 @@ Canonical envelope sections include:
 
 Example shape:
 
-```xml
-<soma-context version="1" scope="project" project="SOMA">
-  <thread-state evidence="episode:123">
+<pre><code class="language-xml">&lt;soma-context version="1" scope="project" project="SOMA"&gt;
+  &lt;thread-state evidence="episode:123"&gt;
     Current task state and active constraints.
-  </thread-state>
-  <relevant-memory>
-    <item rank="1" layer="semantic" evidence="episode:120 claim:44">
+  &lt;/thread-state&gt;
+  &lt;relevant-memory&gt;
+    &lt;item rank="1" layer="semantic" evidence="episode:120 claim:44"&gt;
       A cited memory item relevant to this prompt.
-    </item>
-  </relevant-memory>
-  <user-policy>
-    <claim status="active" evidence="claim:12 verification:7">
+    &lt;/item&gt;
+  &lt;/relevant-memory&gt;
+  &lt;user-policy&gt;
+    &lt;claim status="active" evidence="claim:12 verification:7"&gt;
       A stable preference or rule.
-    </claim>
-  </user-policy>
-  <open-decisions>
-    <claim status="open" evidence="belief_candidate:9 episode:125 episode:126">
+    &lt;/claim&gt;
+  &lt;/user-policy&gt;
+  &lt;open-decisions&gt;
+    &lt;claim status="open" evidence="belief_candidate:9 episode:125 episode:126"&gt;
       Something still unresolved.
-    </claim>
-  </open-decisions>
-  <evidence>episode:120, episode:123, claim:12, verification:7</evidence>
-</soma-context>
-```
+    &lt;/claim&gt;
+  &lt;/open-decisions&gt;
+  &lt;evidence&gt;episode:120, episode:123, claim:12, verification:7&lt;/evidence&gt;
+&lt;/soma-context&gt;</code></pre>
 
 ## Four-Stage Learning Hierarchy
 
