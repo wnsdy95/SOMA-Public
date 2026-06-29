@@ -66,7 +66,7 @@ fastembed = { version = "=5.5.0", default-features = false, features = ["ort-dow
 # on the 1.88 toolchain pin. CPU-only default — Metal/CUDA/Accelerate
 # are user-opt-in by adding their feature flags downstream.
 candle-core = { version = "0.8", default-features = false, optional = true }
-candle-nn = { version = "0.8", default-features = false, optional = true }
+candle-nn = { version = "0.11", default-features = false, optional = true }
 # D130 — MCP request_id span propagation. UUID v4 generated per
 # JSON-RPC dispatch so an operator reading `RUST_LOG=info` traces can
 # correlate "MemoryPack build took 2.5s" to a specific Claude session
